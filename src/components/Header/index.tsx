@@ -30,7 +30,7 @@ const Header = () => {
     <div className='flex flex-col'>
       <ModeToggle className='self-end' />
 
-      <div className='text-primary mx-auto grid grid-cols-2 gap-10 text-nowrap p-10 text-2xl font-semibold'>
+      <div className='mx-auto grid grid-cols-2 gap-10 text-nowrap p-10 text-2xl font-semibold text-primary'>
         {data?.map(order => (
           <div key={order.id} className='flex items-center gap-4'>
             <p>{order.name}</p>

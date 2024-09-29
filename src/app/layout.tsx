@@ -3,6 +3,8 @@ import localFont from 'next/font/local'
 import '@/styles/globals.css'
 import QueryClientWrapper from './QueryClientProvider'
 import { ThemeProvider } from '@/components/theme-provider'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const geistSans = localFont({
   src: '../fonts/GeistVF.woff',
@@ -27,9 +29,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${geistSans.variable} ${geistMono.variable} dark:bg-background-dark bg-background antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} bg-background antialiased dark:bg-background-dark`}>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
-          <QueryClientWrapper>{children}</QueryClientWrapper> {/* Use the Query Client Wrapper */}
+          <QueryClientWrapper>
+            {children}
+            <ToastContainer />
+          </QueryClientWrapper>{' '}
+          {/* Use the Query Client Wrapper */}
         </ThemeProvider>
       </body>
     </html>

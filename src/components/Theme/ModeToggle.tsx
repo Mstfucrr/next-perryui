@@ -18,7 +18,7 @@ export function ModeToggle({ className }: { className?: string }) {
           variant='outline'
           size='icon'
           className={cn(
-            'dark:bg-background-dark dark:text-primary-foreground dark:border-primary dark:hover:bg-primary/90',
+            'dark:border-primary dark:bg-background-dark dark:text-primary-foreground dark:hover:bg-primary/90',
             className
           )}
         >
