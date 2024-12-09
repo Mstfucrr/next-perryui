@@ -2,6 +2,11 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
+  "tailwindCSS.classAttributes": ["className", "class", "styles", ".*Variants", ".*Styles"],
+  "tailwindCSS.experimental.classRegex": [["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]],
+  "npm.packageManager": "pnpm",
+  "eslint.format.enable": true,
+
   "editor.formatOnSave": true,
   "eslint.validate": ["javascript"]
 }

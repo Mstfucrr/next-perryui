@@ -1,12 +1,12 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
+import { toast } from 'react-toastify'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { toast } from 'react-toastify'
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 
 // ** Zod schema for form validation
 const loginSchema = z.object({
@@ -17,7 +17,6 @@ const loginSchema = z.object({
 type LoginFormInputs = z.infer<typeof loginSchema>
 
 const LoginPage = () => {
-  // ** Initialize react-hook-form with Zod schema validation
   const {
     register,
     handleSubmit,
@@ -26,42 +25,66 @@ const LoginPage = () => {
     resolver: zodResolver(loginSchema)
   })
 
-  // ** Handle form submit
+  const [isLoading, setIsLoading] = useState(false)
+
   const onSubmit = (data: LoginFormInputs) => {
-    toast('Login form submitted', { type: 'success' })
+    setIsLoading(true)
+    toast.loading('Loading...')
+    setTimeout(() => {
+      toast.dismiss()
+      toast.success('Welcome back! Login successful.')
+      setIsLoading(false)
+    }, 2000)
     console.log(data)
   }
+
   return (
-    <Card className='mx-auto'>
-      <CardHeader className='space-y-1'>
-        <CardTitle className='text-2xl font-bold'>Login</CardTitle>
-        <CardDescription>Enter your email and password to login to your account</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className='space-y-4'>
+    <div className='flex min-h-screen items-center justify-center'>
+      <Card className='w-full max-w-md rounded-lg border border-green-200 bg-white p-8 shadow-lg'>
+        <CardHeader className='text-center'>
+          <CardTitle className='text-4xl font-bold text-green-800'>Welcome Back</CardTitle>
+          <CardDescription className='mt-2 text-green-600'>Login to your account</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit(onSubmit)} className='space-y-6'>
             {/* Email Field */}
-            <div className='space-y-2'>
-              <label htmlFor='email'>Email</label>
-              <Input id='email' type='email' placeholder='m@example.com' {...register('email')} />
-              {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
+            <div>
+              <label htmlFor='email' className='block text-sm font-medium text-green-700'>
+                Email Address
+              </label>
+              <Input
+                id='email'
+                type='email'
+                placeholder='you@example.com'
+                {...register('email')}
+                className={`mt-1 rounded-md border p-2 ${errors.email ? 'border-red-500' : 'border-green-300'}`}
+              />
+              {errors.email && <p className='mt-1 text-sm text-red-500'>{errors.email.message}</p>}
             </div>
 
             {/* Password Field */}
-            <div className='space-y-2'>
-              <label htmlFor='password'>Password</label>
-              <Input id='password' type='password' {...register('password')} />
-              {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
+            <div>
+              <label htmlFor='password' className='block text-sm font-medium text-green-700'>
+                Password
+              </label>
+              <Input
+                id='password'
+                type='password'
+                placeholder='••••••••'
+                {...register('password')}
+                className={`mt-1 rounded-md border p-2 ${errors.password ? 'border-red-500' : 'border-green-300'}`}
+              />
+              {errors.password && <p className='mt-1 text-sm text-red-500'>{errors.password.message}</p>}
             </div>
 
             {/* Submit Button */}
-            <Button type='submit' className='w-full'>
+            <Button isLoading={isLoading} type='submit' className='w-full text-lg'>
               Login
             </Button>
-          </div>
-        </form>
-      </CardContent>
-    </Card>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
   )
 }
 
