@@ -15,6 +15,7 @@ class AuthService {
 
   async login(input: ILoginRequest) {
     // return publicAxiosInstance.post<ILoginResponse>(`${this.baseUrl}/login`, input)
+    console.log('login', input)
     const mockResponse = {
       token: 'mockToken'
     }

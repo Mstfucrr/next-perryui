@@ -63,7 +63,7 @@ export const addErrorHandlingResponseInterceptor = (axiosInstance: AxiosInstance
 export const refreshTokenResponseInterceptor = (axiosInstance: AxiosInstance) => {
   // If a request returns 401 error, this method will run and it will try to refresh the token
   // Then it will try to make the request again
-  const refreshAuthLogic = (failedRequest: any): Promise<void> => {
+  const refreshAuthLogic = (): Promise<void> => {
     // If refreshToken cookie is not present, redirect to login
     if (!document.cookie) {
       return Promise.resolve()
@@ -79,7 +79,7 @@ export const refreshTokenResponseInterceptor = (axiosInstance: AxiosInstance) =>
 
     return authService
       .refreshToken()
-      .then(tokenRefreshResponse => {
+      .then(() => {
         return Promise.resolve()
       })
       .catch(() => {
