@@ -12,24 +12,24 @@ const config: Config = {
     extend: {
       colors: {
         background: {
-          DEFAULT: '#ffffff',
-          dark: '#14141a'
+          DEFAULT: '#f5f5f5', // Açık mod rengi
+          dark: '#1a1a1a' // Koyu mod rengi
         },
         foreground: {
-          DEFAULT: '#0f172a',
-          dark: '#ffffff'
+          DEFAULT: '#333333',
+          dark: '#cccccc'
         },
         card: {
           DEFAULT: '#ffffff',
-          dark: '#1e1e2f'
+          dark: '#2d2d2d'
         },
         cardForeground: {
-          DEFAULT: '#0f172a',
-          dark: '#ffffff'
+          DEFAULT: '#555555',
+          dark: '#dddddd'
         },
         popover: {
-          DEFAULT: '#ffffff',
-          dark: '#1e1e2f'
+          DEFAULT: '#fafafa',
+          dark: '#3a3a3a'
         },
         popoverForeground: {
           DEFAULT: '#0f172a',

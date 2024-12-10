@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -7,6 +7,8 @@ import { toast } from 'react-toastify'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
+import { useAuth } from '@/context/AuthContext'
+import { useRouter } from 'next/navigation'
 
 // ** Zod schema for form validation
 const loginSchema = z.object({
@@ -24,8 +26,13 @@ const LoginPage = () => {
   } = useForm<LoginFormInputs>({
     resolver: zodResolver(loginSchema)
   })
-
+  const { login, user } = useAuth()
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    if (user) return router.push('/dashboard')
+  }, [user, router])
 
   const onSubmit = (data: LoginFormInputs) => {
     setIsLoading(true)
@@ -34,8 +41,12 @@ const LoginPage = () => {
       toast.dismiss()
       toast.success('Welcome back! Login successful.')
       setIsLoading(false)
+      login({
+        email: data.email,
+        password: data.password
+      })
+      router.push('/dashboard')
     }, 2000)
-    console.log(data)
   }
 
   return (
