@@ -43,7 +43,7 @@ export default function Sidebar() {
       <div className='flex flex-col gap-y-10'>
         <div className='relative flex h-16 w-full items-center justify-between gap-5'>
           {isOpen && (
-            <Link href='/' className='flex w-full items-center gap-5'>
+            <Link href='/dashboard' className='flex w-full items-center gap-5'>
               <CustomImage src='/logo.png' alt='logo' className='size-14' />
               <h1 className='text-nowrap text-2xl font-bold text-primary'>PERRY UI</h1>
             </Link>

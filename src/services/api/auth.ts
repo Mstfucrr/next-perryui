@@ -52,6 +52,7 @@ class AuthService {
         }
       }
       return Promise.resolve(mockResponse)
+      // return Promise.reject(errResponse)
     } catch (error) {
       console.log('errorsssss', error)
       return Promise.reject(error)
