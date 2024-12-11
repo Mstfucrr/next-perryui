@@ -14,8 +14,14 @@ class AuthService {
   private readonly baseUrl = '/auth'
 
   async login(input: ILoginRequest) {
+    // Simulate a 2-second delay
+    await new Promise(resolve => setTimeout(resolve, 2000))
     // return publicAxiosInstance.post<ILoginResponse>(`${this.baseUrl}/login`, input)
-    console.log('login', input)
+    const errResponse = {
+      data: {
+        message: 'Invalid email or password'
+      }
+    }
     const mockResponse = {
       token: 'mockToken'
     }
@@ -33,15 +39,23 @@ class AuthService {
   async getUser() {
     // return privateAxiosInstance.get<ICurrentUserInfo>(`${this.baseUrl}/user`)
 
-    const mockResponse = {
-      data: {
-        id: 'mockId',
-        email: 'mockEmail',
-        roleId: 'mockRoleId',
-        name: 'mockName'
+    try {
+      const errResponse = {
+        message: 'Kullanıcı bulunamadı.'
       }
+      const mockResponse = {
+        data: {
+          id: 'mockId',
+          email: 'mockEmail',
+          roleId: 'mockRoleId',
+          name: 'mockName'
+        }
+      }
+      return Promise.resolve(mockResponse)
+    } catch (error) {
+      console.log('errorsssss', error)
+      return Promise.reject(error)
     }
-    return Promise.resolve(mockResponse)
   }
 }
 

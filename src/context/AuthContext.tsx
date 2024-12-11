@@ -4,13 +4,15 @@ import { authService, ILoginRequest } from '@/services/api/auth'
 import { ICurrentUserInfo } from '@/types'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { createContext, useContext, useEffect, useState } from 'react'
-
+import { toast } from 'react-toastify'
+import { useRouter } from 'next/navigation'
 interface IAuthContext {
   isLoading: boolean
   user: ICurrentUserInfo | null
   login: (user: ILoginRequest) => Promise<void>
   logout: () => Promise<void>
   isAuthenticated: boolean
+  isPending: boolean
 }
 
 export const AuthContext = createContext<IAuthContext | null>(null)
@@ -19,7 +21,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<ICurrentUserInfo | null>(null)
   const [isAuthenticated, setIsAuthenticated] = useState(true)
   const queryClient = useQueryClient()
-
+  const router = useRouter()
   const {
     data: userData,
     isLoading,
@@ -31,7 +33,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   })
 
   useEffect(() => {
-    console.log('userData', userData, error, isLoading)
     if (isLoading) return
     if (error) {
       setUser(null)
@@ -42,10 +43,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setIsAuthenticated(true)
   }, [error, isLoading, userData])
 
-  const { mutate: loginMutation } = useMutation({
+  const { mutate: loginMutation, isPending } = useMutation({
     mutationFn: (user: ILoginRequest) => authService.login(user),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user'] })
+      toast.dismiss()
+      toast.success('Giriş yapıldı. Yönlendiriliyorsunuz...')
+      router.push('/dashboard')
+    },
+    onError: error => {
+      toast.error(error.message)
+    },
+    onMutate: () => {
+      toast.loading('Giriş yapılıyor...')
     }
   })
 
@@ -59,7 +69,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isAuthenticated, isLoading }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, login, logout, isAuthenticated, isLoading, isPending }}>
+      {children}
+    </AuthContext.Provider>
   )
 }
 

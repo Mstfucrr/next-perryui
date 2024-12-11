@@ -4,6 +4,7 @@ import Header from '@/components/Header'
 import React from 'react'
 import { useAuth } from '@/context/AuthContext'
 import { useRouter } from 'next/navigation'
+import Sidebar from '@/components/Sidebar'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const { isLoading, isAuthenticated } = useAuth()
@@ -17,9 +18,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className='flex min-h-screen flex-col py-2'>
-      <Header />
-      <div className='flex-1'>{children}</div>
+    <div className='flex min-h-screen'>
+      <Sidebar />
+      <div className='flex min-h-screen flex-1 flex-col'>
+        <Header />
+        <div className='flex-1'>{children}</div>
+      </div>
     </div>
   )
 }
