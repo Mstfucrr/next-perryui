@@ -16,7 +16,7 @@ class AuthService {
   async login(input: ILoginRequest) {
     // Simulate a 2-second delay
     await new Promise(resolve => setTimeout(resolve, 2000))
-    // return publicAxiosInstance.post<ILoginResponse>(`${this.baseUrl}/login`, input)
+    return publicAxiosInstance.post<ILoginResponse>(`${this.baseUrl}/login`, input)
     const errResponse = {
       data: {
         message: 'Invalid email or password'
@@ -51,8 +51,8 @@ class AuthService {
           name: 'mockName'
         }
       }
-      return Promise.resolve(mockResponse)
-      // return Promise.reject(errResponse)
+      // return Promise.resolve(mockResponse)
+      return Promise.reject(errResponse)
     } catch (error) {
       console.log('errorsssss', error)
       return Promise.reject(error)

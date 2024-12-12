@@ -15,16 +15,16 @@ const groupedPages: SidebarGroup[] = [
   {
     title: 'Portal Yönetimi',
     pages: [
-      { name: 'Hub Config Parametreleri', path: '/hub-config' },
-      { name: 'Hexagon Bilgileri', path: '/hexagon-info' },
-      { name: 'Order Historical Bilgisi', path: '/order-history' }
+      { name: 'Hub Config Parametreleri', path: '/portal/hub-config' },
+      { name: 'Hexagon Bilgileri', path: '/portal/hexagon-info' },
+      { name: 'Order Historical Bilgisi', path: '/portal/order-history' }
     ]
   },
   {
     title: 'Teknik Yönetim',
     pages: [
-      { name: 'Algoritma Değişiklikleri', path: '/algorithm-changes' },
-      { name: 'Cache ve Event Yönetimi', path: '/cache-event-management' }
+      { name: 'Algoritma Değişiklikleri', path: '/technical/algorithm-changes' },
+      { name: 'Cache ve Event Yönetimi', path: '/technical/cache-event-management' }
     ]
   }
 ]

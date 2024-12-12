@@ -3,9 +3,8 @@ import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { toast } from 'react-toastify'
 import { Button } from '@/components/ui/button'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { useAuth } from '@/context/AuthContext'
 import { useRouter } from 'next/navigation'
 import { Form } from '@/components/ui/form'
@@ -47,12 +46,14 @@ const LoginPage = () => {
 
   return (
     <div className='flex min-h-screen items-center justify-center'>
-      <div className='flex w-full max-w-screen-lg justify-center'>
-        <Card className='flex w-full flex-col justify-center rounded-lg border border-green-200 bg-white shadow-lg max-lg:max-w-md lg:w-full lg:p-8'>
+      <div className='flex w-full max-w-[900px] justify-center rounded-lg bg-white shadow-md'>
+        <Card className='flex w-full flex-col justify-center border-0 shadow-none max-lg:max-w-md lg:w-full lg:p-8'>
           <CardHeader className='text-center'>
             <CardTitle className='text-4xl font-bold text-green-800'>
               <div className='flex items-center justify-center'>
-                <span className='text-4xl font-bold text-green-800'>PERRY UI</span>
+                <span className='text-clip bg-gradient-to-r from-primary to-green-800 bg-clip-text text-6xl font-extrabold text-transparent'>
+                  PERRY
+                </span>
               </div>
             </CardTitle>
           </CardHeader>
@@ -71,15 +72,15 @@ const LoginPage = () => {
                   type='password'
                 />
 
-                <Button isLoading={isPending} className='w-full text-lg'>
+                <Button isLoading={isPending} className='w-full text-lg font-bold'>
                   Login
                 </Button>
               </form>
             </Form>
           </CardContent>
         </Card>
-        <div className='hidden w-full rounded-lg border border-green-200 bg-white p-8 shadow-lg lg:block'>
-          <CustomImage src='/logo.png' alt='logo' className='size-full object-cover' />
+        <div className='hidden w-full lg:block'>
+          <CustomImage src='/login.png' alt='logo' className='size-full rounded-r-lg object-cover' />
         </div>
       </div>
     </div>
