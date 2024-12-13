@@ -60,8 +60,8 @@ const config: Config = {
           foregroundDark: '#f5f7fa'
         },
         destructive: {
-          DEFAULT: '#ff4d0a',
-          dark: '#ff4d0a',
+          DEFAULT: '#dc2626',
+          dark: '#dc2626',
           foreground: '#ffffff',
           foregroundDark: '#000000'
         },
