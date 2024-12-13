@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       toast.success('Giriş yapıldı. Yönlendiriliyorsunuz...')
       router.push('/dashboard')
     },
-    onError: error => {
+    onError: () => {
       toast.dismiss()
       toast.error('Giriş yaparken bir hata oluştu. Lütfen tekrar deneyiniz.')
     },
