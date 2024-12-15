@@ -1,3 +1,4 @@
+import HubPage from '@/modules/hub/views/hub'
 import React from 'react'
 
 interface Props {
@@ -6,11 +7,7 @@ interface Props {
   }
 }
 
-export default function HubPage({ params }: Props) {
-  return (
-    <div>
-      HubPage
-      <pre>{JSON.stringify(params, null, 2)}</pre>
-    </div>
-  )
+
+export default function Page({ params }: Props) {
+  return <HubPage id={params.id} />
 }

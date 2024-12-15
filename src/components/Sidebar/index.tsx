@@ -76,7 +76,7 @@ const SidebarGroupComponent = ({ group, pathname }: SidebarGroupComponentProps) 
             <h3 className='text-md font-semibold text-gray-500'>{subMenu.title}</h3>
             <div className='mt-1 flex flex-col gap-2 pl-1'>
               {subMenu.pages.map((page, index) => {
-                const isActive = pathname === page.path
+                const isActive = pathname.includes(page.path)
                 return (
                   <Link href={page.path} key={index} legacyBehavior passHref>
                     <Button

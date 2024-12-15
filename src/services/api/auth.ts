@@ -20,7 +20,7 @@ class AuthService {
     await new Promise(resolve => setTimeout(resolve, 2000))
     console.log('input', input)
     // return publicAxiosInstance.post<ILoginResponse>(`${this.baseUrl}/login`, input)
-
+    publicAxiosInstance.post<ILoginResponse>(`${this.baseUrl}/login`, input)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const errResponse = {
       data: {
