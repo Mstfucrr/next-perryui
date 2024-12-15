@@ -61,7 +61,7 @@ class AuthService {
       // return Promise.reject(errResponse)
     } catch (error) {
       console.log('errorsssss', error)
-      return Promise.reject(error)
+      return Promise.reject(new Error('Kullanıcı bulunamadı.'))
     }
   }
 }

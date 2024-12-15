@@ -41,7 +41,8 @@ const LoginPage = () => {
   }
 
   useEffect(() => {
-    if (user) return router.push('/dashboard')
+    // if (user) return router.push('/dashboard')
+    if (user) console.log('user', user, router)
   }, [user, router])
 
   return (
