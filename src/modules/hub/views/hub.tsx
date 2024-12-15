@@ -18,9 +18,10 @@ function HubPage({ id }: Props) {
     const { data, isLoading, error } = useQuery({
         queryKey: ['hub', id],
         queryFn: () => fetchData(id),
-        retry: 2
+        retry: 2,
+        // 10 saniye sonra cache i siler ve tekrar veri çeker
+        refetchInterval: 5000
     })
-  
 
 
     return (
