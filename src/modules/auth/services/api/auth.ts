@@ -1,7 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { privateAxiosInstance, publicAxiosInstance } from '@/lib/axios'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ICurrentUserInfo } from '@/types'
 
 export interface ILoginRequest {
   email: string

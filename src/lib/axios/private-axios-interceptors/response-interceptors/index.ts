@@ -1,4 +1,4 @@
-import { authService } from '@/services/api/auth'
+import { authService } from '@/modules/auth/services/api/auth'
 import { AxiosError, AxiosInstance, AxiosResponse } from 'axios'
 import createAuthRefreshInterceptor, { AxiosAuthRefreshOptions } from 'axios-auth-refresh'
 
