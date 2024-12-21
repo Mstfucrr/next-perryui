@@ -12,7 +12,7 @@ import CustomImage from '@/components/image'
 import { LoginFormInputs } from '../../types'
 import { loginSchema } from '../../services/schema'
 
-const LoginPage = () => {
+const LoginView = () => {
   const { login, user, isPending } = useAuth()
   const loginForm = useForm<LoginFormInputs>({
     resolver: zodResolver(loginSchema),
@@ -78,4 +78,4 @@ const LoginPage = () => {
   )
 }
 
-export default LoginPage
+export default LoginView

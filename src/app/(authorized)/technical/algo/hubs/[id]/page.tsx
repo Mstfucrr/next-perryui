@@ -7,7 +7,6 @@ interface Props {
   }
 }
 
-
 export default function Page({ params }: Props) {
   return <HubPage id={params.id} />
 }
