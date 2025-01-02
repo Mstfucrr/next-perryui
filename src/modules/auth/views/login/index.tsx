@@ -39,11 +39,11 @@ const LoginView = () => {
   }, [user, router])
 
   return (
-    <div className='flex min-h-screen items-center justify-center'>
-      <div className='flex w-full max-w-[950px] justify-center rounded-lg bg-white shadow-md'>
+    <div className='flex h-1/2 min-h-screen items-center justify-center'>
+      <div className='flex w-full justify-center rounded-lg bg-white shadow-md' style={{ maxWidth: '950px' }}>
         <Card className='flex w-full flex-col border-0 shadow-none max-lg:max-w-md lg:w-full'>
-          <CardHeader className='rounded-tl-lg bg-primary p-3 text-center'>
-            <CardTitle className='flex w-full items-center justify-center text-6xl font-extrabold text-white'>
+          <CardHeader className='rounded-tl-lg bg-primary p-4 text-center'>
+            <CardTitle className='flex w-full items-center justify-center text-4xl font-extrabold text-white'>
               PERRY
             </CardTitle>
           </CardHeader>
