@@ -9,8 +9,8 @@ import { useRouter } from 'next/navigation'
 import { Form } from '@/components/ui/form'
 import FormInputField from '@/components/FormInputField'
 import CustomImage from '@/components/image'
-import { LoginFormInputs } from '../../types'
-import { loginSchema } from '../../services/schema'
+import { LoginFormInputs } from '@/modules/auth/types'
+import { loginSchema } from '@/modules/auth/services/schema'
 
 const LoginView = () => {
   const { login, user, isPending } = useAuth()
@@ -40,7 +40,7 @@ const LoginView = () => {
 
   return (
     <div className='flex h-1/2 min-h-screen items-center justify-center'>
-      <div className='flex w-full justify-center rounded-lg bg-white shadow-md' style={{ maxWidth: '950px' }}>
+      <div className='flex w-full justify-center rounded-lg bg-white shadow-md lg:max-w-5xl'>
         <Card className='flex w-full flex-col border-0 shadow-none max-lg:max-w-md lg:w-full'>
           <CardHeader className='rounded-tl-lg bg-primary p-4 text-center'>
             <CardTitle className='flex w-full items-center justify-center text-4xl font-extrabold text-white'>
