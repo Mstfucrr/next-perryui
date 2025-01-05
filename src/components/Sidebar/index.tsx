@@ -118,7 +118,7 @@ const SidebarGroupComponent = ({ group, pathname }: SidebarGroupComponentProps) 
 )
 
 export default function Sidebar() {
-  const pathname = usePathname()
+  const pathname = usePathname() || ''
   const [isOpen, setIsOpen] = useState(true)
 
   return (
