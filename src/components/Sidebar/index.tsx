@@ -103,9 +103,11 @@ const SidebarGroupComponent = ({ group, pathname }: SidebarGroupComponentProps) 
 )
 
 export default function Sidebar() {
-  const pathname = usePathname() || ''
+  const pathname = usePathname() ?? ''
   const [isOpen, setIsOpen] = useState(true)
   const isDesktop = useMediaQuery('(min-width: 1024px)')
+
+  const handleToggle = () => setIsOpen(prev => !prev)
 
   useEffect(() => {
     setIsOpen(isDesktop)
@@ -121,10 +123,7 @@ export default function Sidebar() {
     >
       {/* Overlay for mobile view */}
       {!isDesktop && isOpen && (
-        <div
-          onClick={() => setIsOpen(false)}
-          className='fixed inset-0 z-40 bg-black bg-opacity-50 transition-opacity'
-        />
+        <div onClick={handleToggle} className='fixed inset-0 z-40 bg-black bg-opacity-50 transition-opacity' />
       )}
 
       <div
@@ -149,7 +148,7 @@ export default function Sidebar() {
       <Button
         variant='ghost'
         size='icon'
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={handleToggle}
         className={cn(
           'absolute -right-5 top-10 z-50 transform bg-white text-primary transition-all duration-500 dark:bg-background-dark dark:text-primary-dark',
           isOpen ? 'left-[95%]' : 'left-2'
