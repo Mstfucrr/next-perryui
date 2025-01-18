@@ -34,30 +34,12 @@ const groupedPages: SidebarGroup[] = [
   }
 ]
 
-type SidebarHeaderProps = {
-  isOpen: boolean
-  toggleSidebar: () => void
-}
-
-const SidebarHeader = ({ isOpen, toggleSidebar }: SidebarHeaderProps) => (
+const SidebarHeader = () => (
   <div className='relative flex h-16 w-full items-center justify-between gap-5'>
-    {isOpen && (
-      <Link href='/dashboard' className='flex w-full items-center gap-5'>
-        <CustomImage src='/logo.png' alt='logo' className='size-14' />
-        <h1 className='text-nowrap text-2xl font-bold text-primary dark:text-primary-dark'>PERRY UI</h1>
-      </Link>
-    )}
-    <Button
-      variant='ghost'
-      size='icon'
-      onClick={toggleSidebar}
-      className={cn(
-        'absolute bg-white text-primary dark:bg-background-dark dark:text-primary-dark',
-        isOpen ? '-right-10' : '-right-14'
-      )}
-    >
-      {isOpen ? <SidebarCloseIcon className='size-7' /> : <SidebarOpenIcon className='size-7' />}
-    </Button>
+    <Link href='/dashboard' className='flex w-full items-center gap-5'>
+      <CustomImage src='/logo.png' alt='logo' className='size-14' />
+      <h1 className='text-nowrap text-2xl font-bold text-primary dark:text-primary-dark'>PERRY UI</h1>
+    </Link>
   </div>
 )
 
@@ -124,23 +106,34 @@ export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(true)
 
   return (
-    <div
-      className={cn(
-        'border-r border-gray-300 bg-white transition-all duration-300 dark:border-gray-700 dark:bg-background-dark',
-        isOpen ? 'min-h-screen w-64 p-4' : 'w-0'
-      )}
-    >
-      <div className='flex flex-col gap-y-10'>
-        <SidebarHeader isOpen={isOpen} toggleSidebar={() => setIsOpen(!isOpen)} />
-        {isOpen && <hr className='w-full border-gray-300 dark:border-gray-700' />}
-        {isOpen && (
+    <div className='relative'>
+      <div
+        className={cn(
+          'left-0 min-h-screen transform border-r border-gray-300 bg-white p-4 transition-all duration-700 dark:border-gray-700 dark:bg-background-dark',
+          isOpen ? 'w-64 translate-x-0' : 'w-0 -translate-x-full scale-x-0'
+        )}
+      >
+        <div className='flex flex-col gap-y-10'>
+          <SidebarHeader />
+          <hr className='w-full border-gray-300 dark:border-gray-700' />
           <div className='flex flex-col gap-5'>
             {groupedPages.map((group, index) => (
               <SidebarGroupComponent key={index} group={group} pathname={pathname} />
             ))}
           </div>
-        )}
+        </div>
       </div>
+
+      <Button
+        variant='ghost'
+        size='icon'
+        onClick={() => setIsOpen(!isOpen)}
+        className={cn(
+          'absolute -right-5 top-10 transform bg-white text-primary transition-all duration-700 dark:bg-background-dark dark:text-primary-dark'
+        )}
+      >
+        <SidebarOpenIcon className={cn('size-7 transition-all duration-700', isOpen ? 'rotate-180' : 'rotate-0')} />
+      </Button>
     </div>
   )
 }
