@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
-import { LucideSettings, SidebarCloseIcon, SidebarOpenIcon } from 'lucide-react'
+import React, { useEffect, useState } from 'react'
+import { LucideSettings, SidebarOpenIcon } from 'lucide-react'
 import { Button } from '../ui/button'
 import CustomImage from '../image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
+import useMediaQuery from '@/hooks/use-media'
 
 type SidebarGroup = {
   title: string
@@ -104,13 +105,33 @@ const SidebarGroupComponent = ({ group, pathname }: SidebarGroupComponentProps) 
 export default function Sidebar() {
   const pathname = usePathname() || ''
   const [isOpen, setIsOpen] = useState(true)
+  const isDesktop = useMediaQuery('(min-width: 1024px)')
+
+  useEffect(() => {
+    setIsOpen(isDesktop)
+  }, [isDesktop])
 
   return (
-    <div className='relative'>
+    <div
+      className={cn(
+        'transition-all duration-500',
+        isOpen ? 'w-64' : 'w-0',
+        isDesktop ? 'relative' : 'fixed z-40 h-full'
+      )}
+    >
+      {/* Overlay for mobile view */}
+      {!isDesktop && isOpen && (
+        <div
+          onClick={() => setIsOpen(false)}
+          className='fixed inset-0 z-40 bg-black bg-opacity-50 transition-opacity'
+        />
+      )}
+
       <div
         className={cn(
-          'left-0 min-h-screen transform border-r border-gray-300 bg-white p-4 transition-all duration-700 dark:border-gray-700 dark:bg-background-dark',
-          isOpen ? 'w-64 translate-x-0' : 'w-0 -translate-x-full scale-x-0'
+          'relative left-0 top-0 z-50 min-h-screen w-64 origin-left transform border-r border-gray-300 bg-white p-4 transition-all duration-500 dark:border-gray-700 dark:bg-background-dark',
+          isOpen ? 'translate-x-0' : '-translate-x-full scale-x-0',
+          isDesktop ? 'relative' : 'fixed h-full'
         )}
       >
         <div className='flex flex-col gap-y-10'>
@@ -124,15 +145,17 @@ export default function Sidebar() {
         </div>
       </div>
 
+      {/* Toggle Button */}
       <Button
         variant='ghost'
         size='icon'
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          'absolute -right-5 top-10 transform bg-white text-primary transition-all duration-700 dark:bg-background-dark dark:text-primary-dark'
+          'absolute -right-5 top-10 z-50 transform bg-white text-primary transition-all duration-500 dark:bg-background-dark dark:text-primary-dark',
+          isOpen ? 'left-[95%]' : 'left-2'
         )}
       >
-        <SidebarOpenIcon className={cn('size-7 transition-all duration-700', isOpen ? 'rotate-180' : 'rotate-0')} />
+        <SidebarOpenIcon className={cn('size-7 transition-all duration-500', isOpen ? 'rotate-180' : 'rotate-0')} />
       </Button>
     </div>
   )

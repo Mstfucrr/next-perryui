@@ -24,7 +24,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <ThemeDropDown className='absolute right-5 top-5' />
       <div className='flex min-h-screen flex-1 flex-col'>
         <Header />
-        <div className='flex-1'>{children}</div>
+        <div className='flex-1 px-4'>{children}</div>
       </div>
     </div>
   )
