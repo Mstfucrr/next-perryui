@@ -14,10 +14,10 @@ export const searchSchema = z.object({
 export const sortSchema = z.enum(['asc', 'desc']).default('desc')
 
 export const paginationSchema = z.object({
-  limit: limitSchema,
-  offset: offsetSchema,
+  limit: limitSchema.optional(),
+  offset: offsetSchema.optional(),
   search: searchSchema.optional(),
-  sort: sortSchema
+  sort: sortSchema.optional()
 })
 
 export type PaginationInput = z.infer<typeof paginationSchema>
