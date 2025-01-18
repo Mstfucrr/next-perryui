@@ -11,6 +11,5 @@ export const urlWithParamsGenerator = (url: string, params?: PaginationInput) =>
   const queryParams = new URLSearchParams()
   if (params) appendParams(queryParams, params)
   const urlWithParams = `${url}?${queryParams.toString()}`
-  console.log('urlWithParams', urlWithParams)
   return urlWithParams
 }
