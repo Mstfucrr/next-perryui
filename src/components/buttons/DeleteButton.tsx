@@ -1,5 +1,6 @@
 import { Button, ButtonProps } from '@/components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { PopoverClose } from '@radix-ui/react-popover'
 import { LucideTrash2 } from 'lucide-react'
 
 interface DeleteButtonProps extends ButtonProps {
@@ -21,9 +22,14 @@ export function DeleteButton({ onDelete, label, isIconButton = false, ...props }
         <div className='flex flex-col gap-3'>
           <p className='text-sm font-medium'>Silmek istediğinizden emin misiniz?</p>
           <div className='flex justify-end gap-2'>
-            <Button variant='destructive' size='sm' onClick={() => onDelete()}>
+            <Button variant='destructive' size='sm' onClick={onDelete}>
               Evet
             </Button>
+            <PopoverClose asChild>
+              <Button variant='outline' size='sm'>
+                Hayır
+              </Button>
+            </PopoverClose>
           </div>
         </div>
       </PopoverContent>

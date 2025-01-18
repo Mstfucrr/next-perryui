@@ -44,14 +44,17 @@ const SidebarHeader = ({ isOpen, toggleSidebar }: SidebarHeaderProps) => (
     {isOpen && (
       <Link href='/dashboard' className='flex w-full items-center gap-5'>
         <CustomImage src='/logo.png' alt='logo' className='size-14' />
-        <h1 className='text-nowrap text-2xl font-bold text-primary'>PERRY UI</h1>
+        <h1 className='text-nowrap text-2xl font-bold text-primary dark:text-primary-dark'>PERRY UI</h1>
       </Link>
     )}
     <Button
       variant='ghost'
       size='icon'
       onClick={toggleSidebar}
-      className={cn('absolute bg-white text-primary', isOpen ? '-right-10' : '-right-14')}
+      className={cn(
+        'absolute bg-white text-primary dark:bg-background-dark dark:text-primary-dark',
+        isOpen ? '-right-10' : '-right-14'
+      )}
     >
       {isOpen ? <SidebarCloseIcon className='size-7' /> : <SidebarOpenIcon className='size-7' />}
     </Button>
@@ -67,24 +70,23 @@ const SidebarGroupComponent = ({ group, pathname }: SidebarGroupComponentProps) 
   <div className='flex flex-col gap-3'>
     <div className='flex items-center gap-2'>
       {group.icon}
-      <h2 className='text-lg font-bold text-gray-600'>{group.title}</h2>
+      <h2 className='text-lg font-bold text-gray-600 dark:text-gray-400'>{group.title}</h2>
     </div>
     {group.subMenu && (
       <div className='flex flex-col gap-3 pl-4'>
         {group.subMenu.map((subMenu, index) => (
           <div key={index}>
-            <h3 className='text-md font-semibold text-gray-500'>{subMenu.title}</h3>
+            <h3 className='text-md font-semibold text-gray-500 dark:text-gray-400'>{subMenu.title}</h3>
             <div className='mt-1 flex flex-col gap-2 pl-1'>
               {subMenu.pages.map((page, index) => {
                 const isActive = pathname.includes(page.path)
                 return (
                   <Link href={page.path} key={index} legacyBehavior passHref>
                     <Button
-                      variant={isActive ? 'default' : 'secondary'}
+                      variant={isActive ? 'default' : 'ghost'}
                       className={cn(
                         'w-full justify-start border-2 font-semibold hover:border-primary',
-                        isActive && 'border-primary text-white',
-                        !isActive && 'hover:border-primary hover:text-primary'
+                        isActive ? 'border-primary text-white' : 'hover:border-primary hover:text-primary'
                       )}
                     >
                       {page.name}
@@ -124,13 +126,13 @@ export default function Sidebar() {
   return (
     <div
       className={cn(
-        'border-r border-gray-300 bg-white transition-all duration-300',
+        'border-r border-gray-300 bg-white transition-all duration-300 dark:border-gray-700 dark:bg-background-dark',
         isOpen ? 'min-h-screen w-64 p-4' : 'w-0'
       )}
     >
       <div className='flex flex-col gap-y-10'>
         <SidebarHeader isOpen={isOpen} toggleSidebar={() => setIsOpen(!isOpen)} />
-        {isOpen && <hr className='w-full border-gray-300' />}
+        {isOpen && <hr className='w-full border-gray-300 dark:border-gray-700' />}
         {isOpen && (
           <div className='flex flex-col gap-5'>
             {groupedPages.map((group, index) => (

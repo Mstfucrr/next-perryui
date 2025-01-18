@@ -1,20 +1,22 @@
+import { Hub } from '@/modules/hub/types'
 import type { NextApiRequest, NextApiResponse } from 'next'
-
-type Hub = {
-  id: string
-  name: string
-  location: string
-}
 
 type PaginatedResponse<T> = {
   rows: T[]
   count: number
 }
 
+const generateRandomDate = () => {
+  const start = new Date('2024-01-01')
+  const end = new Date()
+  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
+}
+
 const hubs: Hub[] = Array.from({ length: 55 }, (_, i) => ({
   id: `hub-${i + 1}`,
   name: `Hub ${i + 1}`,
-  location: `Location ${i + 1}`
+  location: `Location ${i + 1}`,
+  createdAt: generateRandomDate().toISOString()
 }))
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<PaginatedResponse<Hub>>) {

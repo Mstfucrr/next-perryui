@@ -18,10 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='tr'>
-      <body className='bg-background antialiased'>
+      <body className='antialiased'>
         <QueryClientWrapper>
           <AuthProvider>
-            <ThemeProvider attribute='class' defaultTheme='light' enableSystem disableTransitionOnChange>
+            <ThemeProvider attribute='class' defaultTheme='dark' enableSystem disableTransitionOnChange>
               {children}
               <ToastContainer autoClose={2000} />
             </ThemeProvider>

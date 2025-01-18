@@ -9,13 +9,17 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground hover:bg-primary/80 ease-in-out',
-        destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/80 duration-200 ease-in-out',
+        default:
+          'bg-primary text-primary-foreground hover:bg-primary/80 ease-in-out dark:bg-primary-dark dark:text-primary-foreground-dark',
+        destructive:
+          'bg-destructive text-destructive-foreground hover:bg-destructive/80 duration-200 ease-in-out dark:bg-destructive-dark dark:text-destructive-foreground',
         outline:
-          'border border-input-dark/50 bg-background hover:border-input-dark rounded-md hover:bg-accent hover:text-accent-foreground duration-300 ease-in-out shadow-md',
-        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/70 ease-in-out',
-        ghost: 'hover:bg-accent hover:text-accent-foreground ease-in-out',
-        link: 'text-primary underline-offset-4 hover:underline ease-in-out'
+          'border border-input-dark/50 bg-background hover:border-input-dark rounded-md hover:bg-accent hover:text-accent-foreground duration-300 ease-in-out shadow-md dark:border-input-dark dark:bg-background-dark dark:text-foreground-dark',
+        secondary:
+          'bg-secondary text-secondary-foreground hover:bg-secondary/70 ease-in-out dark:bg-secondary-dark dark:text-secondary-foreground-dark',
+        ghost:
+          'hover:bg-accent hover:text-accent-foreground ease-in-out dark:hover:bg-accent-dark dark:hover:text-accent-foreground-dark',
+        link: 'text-primary underline-offset-4 hover:underline ease-in-out dark:text-primary-dark'
       },
       size: {
         default: 'h-10 px-4 py-2',
