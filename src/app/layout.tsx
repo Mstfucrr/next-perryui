@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/components/theme-provider'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { AuthProvider } from '@/context/AuthContext'
+import ErrorBoundary from '@/components/error-boundary'
 
 export const metadata: Metadata = {
   title: 'Perry UI',
@@ -19,14 +20,16 @@ export default function RootLayout({
   return (
     <html lang='tr'>
       <body className='antialiased'>
-        <QueryClientWrapper>
-          <AuthProvider>
-            <ThemeProvider attribute='class' defaultTheme='dark' enableSystem disableTransitionOnChange>
-              {children}
-              <ToastContainer autoClose={2000} />
-            </ThemeProvider>
-          </AuthProvider>
-        </QueryClientWrapper>
+        <ThemeProvider attribute='class' defaultTheme='dark' enableSystem disableTransitionOnChange>
+          <ErrorBoundary>
+            <QueryClientWrapper>
+              <AuthProvider>
+                {children}
+                <ToastContainer autoClose={2000} />
+              </AuthProvider>
+            </QueryClientWrapper>
+          </ErrorBoundary>
+        </ThemeProvider>
       </body>
     </html>
   )
