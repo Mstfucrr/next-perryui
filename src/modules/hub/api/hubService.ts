@@ -6,7 +6,7 @@ import { urlWithParamsGenerator } from '@/utils'
 
 class HubService {
   private readonly baseUrl = '/api/hubs'
-  fetchHubs = async (paginationInput?: PaginationInput): Promise<PaginatedResponse<Hub>> => {
+  listHubs = async (paginationInput?: PaginationInput): Promise<PaginatedResponse<Hub>> => {
     const url = urlWithParamsGenerator(this.baseUrl, paginationInput)
     const response = await axios.get(url)
     return response.data

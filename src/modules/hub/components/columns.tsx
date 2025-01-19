@@ -1,11 +1,10 @@
-import { ColumnDef } from '@tanstack/react-table'
-import { Hub } from '../types'
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu'
-import { MoreHorizontal } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { EditButton } from '@/components/buttons/EditButton'
 import { DeleteButton } from '@/components/buttons/DeleteButton'
+import { EditButton } from '@/components/buttons/EditButton'
+import { Button } from '@/components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { ColumnDef } from '@tanstack/react-table'
+import { MoreHorizontal } from 'lucide-react'
+import { Hub } from '../types'
 
 export const columns: ColumnDef<Hub>[] = [
   { header: 'ID', accessorKey: 'id', size: 5 },
@@ -22,7 +21,7 @@ export const columns: ColumnDef<Hub>[] = [
   },
   {
     header: 'Actions',
-    size: 100,
+    size: 5,
     cell: ({ row }) => {
       return (
         <Popover>
