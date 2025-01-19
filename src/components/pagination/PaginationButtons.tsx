@@ -15,7 +15,7 @@ export const PageNumberButton = ({ pageNumber, currentPage, pageCount, onClick }
         variant={currentPage === pageNumber ? 'default' : 'outline'}
         size='sm'
         className={cn(
-          'h-8 w-8 border-customColors-gray bg-background p-0 text-sm text-foreground hover:bg-accent',
+          'border-customColors-gray h-8 w-8 bg-background p-0 text-sm text-foreground hover:bg-accent',
           currentPage === pageNumber && 'cursor-default border-accent bg-accent'
         )}
       >
