@@ -1,14 +1,28 @@
 import * as React from 'react'
 
 import { cn } from '@/lib/utils'
+import { cva, type VariantProps } from 'class-variance-authority'
 
-const Table = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement>>(
-  ({ className, ...props }, ref) => (
-    <div className='relative w-full overflow-auto'>
-      <table ref={ref} className={cn('w-full caption-bottom text-sm', className)} {...props} />
-    </div>
-  )
-)
+const tableSizeVariants = cva('w-full caption-bottom text-sm', {
+  variants: {
+    size: {
+      sm: 'text-xs [&_td]:p-2 [&_th]:p-2',
+      md: 'text-sm [&_td]:p-4 [&_th]:p-4',
+      lg: 'text-base [&_td]:p-6 [&_th]:p-6'
+    }
+  },
+  defaultVariants: {
+    size: 'md'
+  }
+})
+
+interface TableProps extends React.HTMLAttributes<HTMLTableElement>, VariantProps<typeof tableSizeVariants> {}
+
+const Table = React.forwardRef<HTMLTableElement, TableProps>(({ className, size, ...props }, ref) => (
+  <div className='relative w-full overflow-auto'>
+    <table ref={ref} className={cn(tableSizeVariants({ size, className }))} {...props} />
+  </div>
+))
 Table.displayName = 'Table'
 
 const TableHeader = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(
@@ -21,7 +35,7 @@ const TableSortableHeader = React.forwardRef<HTMLTableCellElement, React.HTMLAtt
     <th
       ref={ref}
       className={cn(
-        'dark:text-muted-foreground-dark h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0',
+        'h-12 px-4 text-left align-middle font-medium text-muted-foreground dark:text-muted-foreground-dark [&:has([role=checkbox])]:pr-0',
         className
       )}
       {...props}
@@ -67,7 +81,7 @@ const TableHead = React.forwardRef<HTMLTableCellElement, React.ThHTMLAttributes<
     <th
       ref={ref}
       className={cn(
-        'dark:text-muted-foreground-dark h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0',
+        'h-12 px-4 text-left align-middle font-medium text-muted-foreground dark:text-muted-foreground-dark [&:has([role=checkbox])]:pr-0',
         className
       )}
       {...props}
@@ -87,11 +101,11 @@ const TableCaption = React.forwardRef<HTMLTableCaptionElement, React.HTMLAttribu
   ({ className, ...props }, ref) => (
     <caption
       ref={ref}
-      className={cn('dark:text-muted-foreground-dark mt-4 text-sm text-muted-foreground', className)}
+      className={cn('mt-4 text-sm text-muted-foreground dark:text-muted-foreground-dark', className)}
       {...props}
     />
   )
 )
 TableCaption.displayName = 'TableCaption'
 
-export { Table, TableHeader, TableSortableHeader, TableBody, TableFooter, TableHead, TableRow, TableCell, TableCaption }
+export { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow, TableSortableHeader }
