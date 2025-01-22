@@ -19,7 +19,7 @@ const hubs: Hub[] = Array.from({ length: 55 }, (_, i) => ({
   createdAt: generateRandomDate().toISOString()
 }))
 
-export default function handler(req: NextApiRequest, res: NextApiResponse<PaginatedResponse<Hub>>) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<PaginatedResponse<Hub>>) {
   const { limit = 10, offset = 0, sort = 'asc', key, value } = req.query
 
   const parsedLimit = parseInt(limit as string, 10)

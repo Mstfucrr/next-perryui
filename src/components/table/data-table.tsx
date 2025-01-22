@@ -1,20 +1,21 @@
 'use client'
 
-import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table'
-
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table'
+import { Skeleton } from '../ui/skeleton'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[] | undefined
+  isLoading: boolean
 }
 
-export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({ columns, data, isLoading }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
-    data: data ?? [], // tablo içerisinde gösterilecek veriler
-    columns, // tablo içerisinde gösterilecek sütunlar
-    getCoreRowModel: getCoreRowModel(), // tablo içerisinde gösterilecek verilerin nasıl modelleneceği
-    getPaginationRowModel: getPaginationRowModel() // tablo içerisinde gösterilecek verilerin nasıl sayfalanacağı
+    data: data ?? [],
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel()
   })
 
   return (
@@ -32,7 +33,15 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
           ))}
         </TableHeader>
         <TableBody>
-          {table.getRowModel().rows?.length ? (
+          {isLoading ? (
+            <TableRow>
+              {Array.from({ length: columns.length }).map((_, index) => (
+                <TableCell key={index}>
+                  <Skeleton className='h-6 w-full' />
+                </TableCell>
+              ))}
+            </TableRow>
+          ) : table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map(row => (
               <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                 {row.getVisibleCells().map(cell => (

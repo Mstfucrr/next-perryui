@@ -9,12 +9,11 @@ const HubListPage = () => {
   const { hubs, isLoading, error, pagination } = useGetHubs()
 
   if (error) return <div>Error {JSON.stringify(error)}</div>
-  if (isLoading) return <div>Loading...</div>
 
   return (
     <div className='container mx-auto py-10'>
       <h1 className='mb-5 text-2xl font-bold'>Hubs</h1>
-      <DataTable columns={columns} data={hubs} />
+      <DataTable columns={columns} data={hubs} isLoading={isLoading} />
       <GlobalPagination pagination={pagination} />
     </div>
   )
