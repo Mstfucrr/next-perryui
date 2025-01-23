@@ -52,7 +52,8 @@ class AuthService {
           id: 'mockId',
           email: 'mockEmail',
           roleId: 'mockRoleId',
-          name: 'mockName'
+          name: 'mockName',
+          permissions: ['admin']
         }
       }
       return Promise.resolve(mockResponse)

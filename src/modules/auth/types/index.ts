@@ -15,6 +15,7 @@ export interface ICurrentUserInfo {
   email: string
   roleId: string
   name: string
+  permissions: string[]
 }
 
 export type LoginFormInputs = z.infer<typeof loginSchema>
