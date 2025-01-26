@@ -14,11 +14,12 @@ export const withAuthorization = (Component: NextPage) => {
     if (!permissions) return <p>Loading...</p>
 
     const allows: AllowsType = Component.allows // Ensure allows is typed correctly
-    if (allows && Array.isArray(allows)) {
-      if (!allows.some(allow => permissions.includes(allow))) return <Unauthorized />
-    } else if (allows && typeof allows === 'string') {
-      if (!permissions.includes(allows)) return <Unauthorized />
-    }
+
+    const isAuthorized = Array.isArray(allows)
+      ? allows.some(allow => permissions.includes(allow))
+      : allows && permissions.includes(allows)
+
+    if (!isAuthorized) return <Unauthorized />
 
     return <Component {...props} />
   }

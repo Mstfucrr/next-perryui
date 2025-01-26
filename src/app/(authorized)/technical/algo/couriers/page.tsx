@@ -9,7 +9,7 @@ const CourierPage: NextPage = () => {
       <Head>
         <title>Kuryeler</title>
       </Head>
-      <div className='container mx-auto flex w-full flex-col'>Kuryeler</div>
+      <div className='container mx-auto flex w-full flex-col'>Kuryelerasd</div>
     </>
   )
 }

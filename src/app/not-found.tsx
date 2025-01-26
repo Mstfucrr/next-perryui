@@ -1,9 +1,8 @@
 'use client'
 
-import React from 'react'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
 import CustomImage from '@/components/image'
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 
 export default function NotFound() {
   return (
@@ -22,7 +21,7 @@ export default function NotFound() {
           <p className='max-w-md text-pretty rounded-lg bg-white p-2 text-lg font-medium text-gray-700'>
             Aradığınız sayfa mevcut değil. Anasayfaya dönmek için aşağıdaki butonu kullanabilirsiniz.
           </p>
-          <Link href='/dashboard'>
+          <Link href='/dashboard' legacyBehavior passHref>
             <Button
               className='mt-4 w-full px-8 py-6 text-lg font-medium transition-all hover:scale-105 md:w-auto'
               size='lg'

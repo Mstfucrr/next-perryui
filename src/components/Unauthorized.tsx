@@ -1,5 +1,6 @@
 import { ArrowLeft, ShieldOff } from 'lucide-react'
 import Link from 'next/link'
+import { Button } from './ui/button'
 
 export default function Unauthorized() {
   return (
@@ -12,12 +13,11 @@ export default function Unauthorized() {
           Üzgünüz, bu sayfayı görüntülemek için gerekli izinlere sahip değilsiniz. Eğer bu bir hata olduğunu
           düşünüyorsanız, lütfen sistem yöneticinizle iletişime geçin.
         </p>
-        <Link
-          href='/'
-          className='inline-flex items-center rounded-lg bg-destructive px-8 py-4 text-lg font-semibold text-white transition-colors duration-300 hover:bg-destructive-dark'
-        >
-          <ArrowLeft className='mr-2 h-6 w-6' />
-          Ana Sayfaya Dön
+        <Link href='/' legacyBehavior passHref>
+          <Button variant='destructive' size='xl'>
+            <ArrowLeft className='mr-2 h-6 w-6' />
+            Ana Sayfaya Dön
+          </Button>
         </Link>
       </div>
     </div>
