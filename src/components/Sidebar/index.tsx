@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { LucideSettings, SidebarOpenIcon } from 'lucide-react'
-import { Button } from '../ui/button'
-import CustomImage from '../image'
+import useMediaQuery from '@/hooks/use-media'
+import { cn } from '@/lib/utils'
+import { LucideSettings, LucideUsers, SidebarOpenIcon } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { cn } from '@/lib/utils'
-import useMediaQuery from '@/hooks/use-media'
+import React, { useEffect, useState } from 'react'
+import CustomImage from '../image'
+import { Button } from '../ui/button'
 
 type SidebarGroup = {
   title: string
@@ -32,6 +32,11 @@ const groupedPages: SidebarGroup[] = [
         ]
       }
     ]
+  },
+  {
+    title: 'Kullanıcı Yönetimi',
+    icon: <LucideUsers />,
+    pages: [{ name: 'Kullanıcı Yönetimi', path: '/user-management' }]
   }
 ]
 
@@ -136,7 +141,7 @@ export default function Sidebar() {
         <div className='flex flex-col gap-y-10'>
           <SidebarHeader />
           <hr className='w-full border-gray-300 dark:border-gray-700' />
-          <div className='flex flex-col gap-5'>
+          <div className='flex flex-col gap-8'>
             {groupedPages.map((group, index) => (
               <SidebarGroupComponent key={index} group={group} pathname={pathname} />
             ))}

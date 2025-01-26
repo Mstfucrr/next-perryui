@@ -14,7 +14,7 @@ const HubListPage = () => {
     <div className='container mx-auto py-10'>
       <h1 className='mb-5 text-2xl font-bold'>Hubs</h1>
       <DataTable columns={columns} data={hubs} isLoading={isLoading} />
-      <GlobalPagination pagination={pagination} />
+      <GlobalPagination pagination={pagination} isLoading={isLoading} />
     </div>
   )
 }

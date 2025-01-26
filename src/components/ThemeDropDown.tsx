@@ -1,7 +1,9 @@
-import { useTheme } from 'next-themes'
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from './ui/dropdown-menu'
-import { Button } from './ui/button'
+'use client'
+import { cn } from '@/lib/utils'
 import { ComputerIcon, MoonIcon, SunIcon } from 'lucide-react'
+import { useTheme } from 'next-themes'
+import { Button } from './ui/button'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu'
 
 type Theme = 'light' | 'dark' | 'system'
 
@@ -23,18 +25,27 @@ const themesWithIcons = [
 ]
 
 export default function ThemeDropDown({ className }: ThemeDropDownProps) {
-  const { theme, setTheme } = useTheme()
+  const { theme: currentTheme, setTheme } = useTheme()
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant='link' size='icon' className={className}>
-          <ThemeIcon theme={theme as Theme} />
+          <ThemeIcon theme={currentTheme as Theme} />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         {themesWithIcons.map(({ theme, icon }) => (
-          <DropdownMenuItem key={theme} onClick={() => setTheme(theme)}>
+          <DropdownMenuItem
+            key={theme}
+            onClick={() => setTheme(theme)}
+            className={cn(
+              'border border-transparent',
+              currentTheme === theme
+                ? 'bg-primary dark:bg-primary-dark'
+                : 'hover:border hover:border-primary hover:bg-primary/10 dark:hover:border-primary-dark'
+            )}
+          >
             {icon} {theme}
           </DropdownMenuItem>
         ))}

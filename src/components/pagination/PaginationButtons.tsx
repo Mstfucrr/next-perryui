@@ -13,10 +13,11 @@ export const PageNumberButton = ({ pageNumber, currentPage, pageCount, onClick }
       <Button
         onClick={onClick}
         variant={currentPage === pageNumber ? 'default' : 'outline'}
+        disabled={currentPage === pageNumber}
         size='sm'
         className={cn(
-          'border-customColors-gray h-8 w-8 bg-background p-0 text-sm text-foreground hover:bg-accent',
-          currentPage === pageNumber && 'cursor-default border-accent bg-accent'
+          'h-8 w-8 p-0 text-sm text-foreground hover:bg-accent',
+          currentPage === pageNumber && 'cursor-default border-b-2 border-b-accent-dark bg-accent'
         )}
       >
         {pageNumber + 1}

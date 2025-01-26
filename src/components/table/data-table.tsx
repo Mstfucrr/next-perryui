@@ -4,6 +4,44 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table'
 import { Skeleton } from '../ui/skeleton'
 
+const DataTableLoading = <TData, TValue>({ columns }: { columns: ColumnDef<TData, TValue>[] }) => {
+  return Array.from({ length: 5 }).map((_, index) => (
+    <TableRow key={index}>
+      {columns.map((_, index) => (
+        <TableCell key={index}>
+          <Skeleton className='h-6 w-full' />
+        </TableCell>
+      ))}
+    </TableRow>
+  ))
+}
+
+const DataTableEmpty = <TData, TValue>({ columns }: { columns: ColumnDef<TData, TValue>[] }) => {
+  return (
+    <TableRow>
+      <TableCell colSpan={columns.length} className='h-24 text-center'>
+        No results.
+      </TableCell>
+    </TableRow>
+  )
+}
+
+const DataTableContent = <TData, TValue>({
+  columns,
+  data,
+  children,
+  isLoading
+}: {
+  columns: ColumnDef<TData, TValue>[]
+  data: TData[] | undefined
+  children: React.ReactNode
+  isLoading: boolean
+}) => {
+  if (isLoading) return <DataTableLoading columns={columns} />
+  if (data?.length === 0) return <DataTableEmpty columns={columns} />
+  return <>{children}</>
+}
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[] | undefined
@@ -15,7 +53,8 @@ export function DataTable<TData, TValue>({ columns, data, isLoading }: DataTable
     data: data ?? [],
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel()
+    getPaginationRowModel: getPaginationRowModel(),
+    manualPagination: true
   })
 
   return (
@@ -33,29 +72,16 @@ export function DataTable<TData, TValue>({ columns, data, isLoading }: DataTable
           ))}
         </TableHeader>
         <TableBody>
-          {isLoading ? (
-            <TableRow>
-              {Array.from({ length: columns.length }).map((_, index) => (
-                <TableCell key={index}>
-                  <Skeleton className='h-6 w-full' />
-                </TableCell>
+          <DataTableContent columns={columns} data={data} isLoading={isLoading}>
+            {table.getRowModel().rows?.length > 0 &&
+              table.getRowModel().rows.map(row => (
+                <TableRow key={row.id} data-state={row.getIsSelected() ? 'selected' : undefined}>
+                  {row.getVisibleCells().map(cell => (
+                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                  ))}
+                </TableRow>
               ))}
-            </TableRow>
-          ) : table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map(row => (
-              <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                {row.getVisibleCells().map(cell => (
-                  <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-                ))}
-              </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className='h-24 text-center'>
-                No results.
-              </TableCell>
-            </TableRow>
-          )}
+          </DataTableContent>
         </TableBody>
       </Table>
     </div>

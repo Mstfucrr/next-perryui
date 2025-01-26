@@ -10,13 +10,13 @@ export function PageSizeSelector({ pageSizes, pageSize, setPageSize }: PageSizeS
   return (
     <div className='flex items-center'>
       <Select value={String(pageSize)} onValueChange={value => setPageSize(Number(value))}>
-        <SelectTrigger className='border-customColors-gray h-8 w-[130px] bg-background text-sm text-foreground hover:bg-accent'>
+        <SelectTrigger className='h-8 w-[130px] text-sm'>
           <SelectValue placeholder='Page Size' />
         </SelectTrigger>
-        <SelectContent className='border-customColors-gray bg-background'>
+        <SelectContent>
           {pageSizes.map(size => (
-            <SelectItem key={size} value={String(size)} className='text-sm hover:bg-[#3A3B3C]'>
-              <span className='block text-left text-foreground'>{size} per page</span>
+            <SelectItem key={size} value={String(size)} className='text-sm'>
+              <span className='block text-left'>{size} per page</span>
             </SelectItem>
           ))}
         </SelectContent>

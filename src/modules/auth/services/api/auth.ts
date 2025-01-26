@@ -63,6 +63,14 @@ class AuthService {
       return Promise.reject(new Error('Kullanıcı bulunamadı.'))
     }
   }
+
+  async getUsers() {
+    return privateAxiosInstance.get('/users')
+  }
+
+  async updateUserPermissions(permissions: { [key: string]: string[] }) {
+    return privateAxiosInstance.post('/update-permissions', permissions)
+  }
 }
 
 export const authService = new AuthService()
