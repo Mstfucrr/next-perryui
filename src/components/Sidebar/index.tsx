@@ -1,11 +1,11 @@
 import useMediaQuery from '@/hooks/use-media'
 import { cn } from '@/lib/utils'
 import { LucideSettings, LucideUsers, SidebarOpenIcon } from 'lucide-react'
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
-import CustomImage from '../image'
 import { Button } from '../ui/button'
+import SidebarGroupComponent from './SidebarGroupComponent'
+import SidebarHeader from './SidebarHeader'
 
 type SidebarGroup = {
   title: string
@@ -39,73 +39,6 @@ const groupedPages: SidebarGroup[] = [
     pages: [{ name: 'Kullanıcı Yönetimi', path: '/user-management' }]
   }
 ]
-
-const SidebarHeader = () => (
-  <div className='relative flex h-16 w-full items-center justify-between gap-5'>
-    <Link href='/dashboard' className='flex w-full items-center gap-5'>
-      <CustomImage src='/logo.png' alt='logo' className='size-14' />
-      <h1 className='text-nowrap text-2xl font-bold text-primary dark:text-primary-dark'>PERRY UI</h1>
-    </Link>
-  </div>
-)
-
-type SidebarGroupComponentProps = {
-  group: SidebarGroup
-  pathname: string
-}
-
-const SidebarGroupComponent = ({ group, pathname }: SidebarGroupComponentProps) => (
-  <div className='flex flex-col gap-3'>
-    <div className='flex items-center gap-2'>
-      {group.icon}
-      <h2 className='text-lg font-bold text-gray-600 dark:text-gray-400'>{group.title}</h2>
-    </div>
-    {group.subMenu && (
-      <div className='flex flex-col gap-3 pl-4'>
-        {group.subMenu.map((subMenu, index) => (
-          <div key={index}>
-            <h3 className='text-md font-semibold text-gray-500 dark:text-gray-400'>{subMenu.title}</h3>
-            <div className='mt-1 flex flex-col gap-2 pl-1'>
-              {subMenu.pages.map((page, index) => {
-                const isActive = pathname.includes(page.path)
-                return (
-                  <Link href={page.path} key={index} legacyBehavior passHref>
-                    <Button
-                      variant={isActive ? 'default' : 'ghost'}
-                      className={cn(
-                        'w-full justify-start border-2 font-semibold hover:border-primary',
-                        isActive ? 'border-primary text-white' : 'hover:border-primary hover:text-primary'
-                      )}
-                    >
-                      {page.name}
-                    </Button>
-                  </Link>
-                )
-              })}
-            </div>
-          </div>
-        ))}
-      </div>
-    )}
-    {group.pages && (
-      <div className='flex flex-col gap-3 pl-4'>
-        {group.pages.map((page, index) => {
-          const isActive = pathname === page.path
-          return (
-            <Link href={page.path} key={index} legacyBehavior passHref>
-              <Button
-                variant={isActive ? 'default' : 'secondary'}
-                className='w-full justify-start border-2 font-semibold hover:border-primary'
-              >
-                {page.name}
-              </Button>
-            </Link>
-          )
-        })}
-      </div>
-    )}
-  </div>
-)
 
 export default function Sidebar() {
   const pathname = usePathname() ?? ''
