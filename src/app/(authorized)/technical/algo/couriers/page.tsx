@@ -14,6 +14,4 @@ const CourierPage: NextPage = () => {
   )
 }
 
-CourierPage.allows = ['admin']
-
 export default withAuthorization(CourierPage)

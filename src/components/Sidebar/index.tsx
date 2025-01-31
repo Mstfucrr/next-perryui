@@ -1,49 +1,17 @@
+import { groupedPages } from '@/constants/sideBar'
+import { useAuth } from '@/context/AuthContext'
 import useMediaQuery from '@/hooks/use-media'
 import { cn } from '@/lib/utils'
-import { LucideSettings, LucideUsers, SidebarOpenIcon } from 'lucide-react'
-import { usePathname } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import { SidebarOpenIcon } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { Button } from '../ui/button'
 import SidebarGroupComponent from './SidebarGroupComponent'
 import SidebarHeader from './SidebarHeader'
 
-type SidebarGroup = {
-  title: string
-  icon: React.ReactNode
-  subMenu?: Array<{
-    title: string
-    pages: Array<{ name: string; path: string }>
-  }>
-  pages?: Array<{ name: string; path: string }>
-}
-
-const groupedPages: SidebarGroup[] = [
-  {
-    title: 'Teknik Yönetim',
-    icon: <LucideSettings />,
-    subMenu: [
-      {
-        title: 'Algo',
-        pages: [
-          { name: 'Hub', path: '/technical/algo/hubs' },
-          { name: 'Config', path: '/technical/algo/config' },
-          { name: 'Order', path: '/technical/algo/orders' },
-          { name: 'Courier', path: '/technical/algo/couriers' }
-        ]
-      }
-    ]
-  },
-  {
-    title: 'Kullanıcı Yönetimi',
-    icon: <LucideUsers />,
-    pages: [{ name: 'Kullanıcı Yönetimi', path: '/user-management' }]
-  }
-]
-
 export default function Sidebar() {
-  const pathname = usePathname() ?? ''
   const [isOpen, setIsOpen] = useState(true)
   const isDesktop = useMediaQuery('(min-width: 1024px)')
+  const { user } = useAuth()
 
   const handleToggle = () => setIsOpen(prev => !prev)
 
@@ -76,7 +44,7 @@ export default function Sidebar() {
           <hr className='w-full border-gray-300 dark:border-gray-700' />
           <div className='flex flex-col gap-8'>
             {groupedPages.map((group, index) => (
-              <SidebarGroupComponent key={index} group={group} pathname={pathname} />
+              <SidebarGroupComponent key={index} group={group} userRole={user?.role} />
             ))}
           </div>
         </div>

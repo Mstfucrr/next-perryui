@@ -1,5 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { privateAxiosInstance, publicAxiosInstance } from '@/lib/axios'
+import { Role } from '../../types'
 
 export interface ILoginRequest {
   email: string
@@ -51,9 +52,8 @@ class AuthService {
         data: {
           id: 'mockId',
           email: 'mockEmail',
-          roleId: 'mockRoleId',
           name: 'mockName',
-          permissions: ['admin']
+          role: Role.USER
         }
       }
       return Promise.resolve(mockResponse)

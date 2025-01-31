@@ -1,6 +1,9 @@
 'use client'
-import React from 'react'
+import { withAuthorization } from '@/context/withAuthorization'
+import { NextPage } from 'next'
 
-export default function OrdersPage() {
+const OrdersPage: NextPage = () => {
   return <div className='container mx-auto flex w-full flex-col'>Orders Page</div>
 }
+
+export default withAuthorization(OrdersPage)

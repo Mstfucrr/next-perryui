@@ -1,11 +1,12 @@
 'use client'
 
+import { authService } from '@/modules/auth/services/api/auth'
+import { ICurrentUserInfo, ILoginRequest } from '@/modules/auth/types'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useRouter } from 'next/navigation'
 import { createContext, useContext, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import { useRouter } from 'next/navigation'
-import { ICurrentUserInfo, ILoginRequest } from '@/modules/auth/types'
-import { authService } from '@/modules/auth/services/api/auth'
+
 interface IAuthContext {
   isLoading: boolean
   user: ICurrentUserInfo | null

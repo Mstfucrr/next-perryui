@@ -1,25 +1,23 @@
 'use client'
 import Unauthorized from '@/components/Unauthorized'
-import { usePermissions } from '@/context/PermissionsContext'
+import { getAllowedRolesByPath } from '@/constants/sideBar'
+import { useAuth } from '@/context/AuthContext'
+import { isUserAuthorized } from '@/utils/authorization'
 import { NextPage } from 'next'
-
-// Define a type for the allows property
-type AllowsType = string[] | string | undefined
+import { usePathname } from 'next/navigation'
 
 export const withAuthorization = (Component: NextPage) => {
   const Wrapper = (props: { [key: string]: any }) => {
-    // Specify a more specific type for props
-    const permissions = usePermissions()
+    const { user } = useAuth()
+    const pathname = usePathname()
 
-    if (!permissions) return <p>Loading...</p>
+    if (!user) return <p>Loading...</p>
 
-    const allows: AllowsType = Component.allows // Ensure allows is typed correctly
+    const currentPathRoles = getAllowedRolesByPath(pathname)
 
-    const isAuthorized = Array.isArray(allows)
-      ? allows.some(allow => permissions.includes(allow))
-      : allows && permissions.includes(allows)
+    const isAllowed = isUserAuthorized(currentPathRoles, user?.role)
 
-    if (!isAuthorized) return <Unauthorized />
+    if (!isAllowed) return <Unauthorized />
 
     return <Component {...props} />
   }
