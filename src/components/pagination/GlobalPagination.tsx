@@ -10,7 +10,7 @@ interface GlobalPaginationProps {
   isLoading?: boolean
 }
 
-export function GlobalPagination({ pagination, isIconOnly = false, isLoading = false }: GlobalPaginationProps) {
+export function GlobalPagination({ pagination, isIconOnly = true, isLoading = false }: GlobalPaginationProps) {
   const {
     pageIndex,
     pageSize,
