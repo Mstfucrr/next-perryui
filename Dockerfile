@@ -43,14 +43,14 @@ ENV NODE_ENV production
 # Çalışma zamanında telemetriyi devre dışı bırakmak isterseniz, aşağıdaki satırın yorum işaretini kaldırın.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+RUN addgroup --system --gid 1001 nodejs \
+&& adduser --system --uid 1001 nextjs
 
 COPY --from=builder /app/public ./public
 
 # Prerender önbelleği için doğru izinleri ayarla
-RUN mkdir .next
-RUN chown nextjs:nodejs .next
+RUN mkdir .next \
+&& chown nextjs:nodejs .next
 
 # Otomatik olarak çıktı izlerini kullanarak imaj boyutunu azalt
 # https://nextjs.org/docs/advanced-features/output-file-tracing
@@ -65,4 +65,4 @@ ENV PORT 3000
 
 # server.js, standalone çıktıdan next build tarafından oluşturulur
 # https://nextjs.org/docs/pages/api-reference/next-config-js/output
-CMD HOSTNAME="0.0.0.0" node server.js
+CMD ["HOSTNAME=0.0.0.0", "node", "server.js"]
