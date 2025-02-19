@@ -5,9 +5,10 @@ import { useAuth } from '@/context/AuthContext'
 import { isUserAuthorized } from '@/utils/authorization'
 import { NextPage } from 'next'
 import { usePathname } from 'next/navigation'
+import { ComponentProps } from 'react'
 
 export const withAuthorization = (Component: NextPage) => {
-  const Wrapper = (props: { [key: string]: any }) => {
+  const Wrapper = (props: ComponentProps<NextPage>) => {
     const { user } = useAuth()
     const pathname = usePathname()
 
