@@ -6,14 +6,14 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 # Corepack kullanmadan pnpm'i yükle
-RUN npm install -g pnpm --ignore-scripts
+RUN npm install --ignore-scripts -g pnpm
 
 # Tercih edilen paket yöneticisine göre bağımlılıkları yükle
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 RUN \
     if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
     elif [ -f package-lock.json ]; then npm ci; \
-    elif [ -f pnpm-lock.yaml ]; then pnpm install --frozen-lockfile --ignore-scripts; \
+    elif [ -f pnpm-lock.yaml ]; then pnpm install --ignore-scripts --frozen-lockfile; \
     else echo "Lockfile bulunamadı." && exit 1; \
     fi
 
@@ -23,7 +23,7 @@ FROM base AS builder
 WORKDIR /app
 
 # Corepack kullanmadan pnpm'i yükle
-RUN npm install -g pnpm --ignore-scripts
+RUN npm install --ignore-scripts -g pnpm
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
