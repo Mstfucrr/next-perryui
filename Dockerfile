@@ -6,7 +6,7 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 # Corepack kullanmadan pnpm'i yükle
-RUN npm install -g pnpm
+RUN npm install -g pnpm --ignore-scripts
 
 # Tercih edilen paket yöneticisine göre bağımlılıkları yükle
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
@@ -23,7 +23,7 @@ FROM base AS builder
 WORKDIR /app
 
 # Corepack kullanmadan pnpm'i yükle
-RUN npm install -g pnpm
+RUN npm install -g pnpm --ignore-scripts
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
