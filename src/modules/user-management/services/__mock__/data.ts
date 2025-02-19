@@ -6,7 +6,7 @@ export interface ICurrentUserInfo {
   permissions: string[]
 }
 
-const users: ICurrentUserInfo[] = [
+export const users: ICurrentUserInfo[] = [
   {
     id: '1',
     email: 'test@test.com',

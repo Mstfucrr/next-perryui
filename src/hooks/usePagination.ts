@@ -27,7 +27,7 @@ export function usePagination({
 
   useEffect(() => {
     onPageChange?.(state)
-  }, [state.pageIndex, state.pageSize])
+  }, [onPageChange, state])
 
   const setPageIndex = (pageIndex: number) => {
     setState(prev => ({ ...prev, pageIndex }))

@@ -22,7 +22,7 @@ export const columns: ColumnDef<Hub>[] = [
   {
     header: 'Actions',
     size: 5,
-    cell: ({ row }) => {
+    cell: () => {
       return (
         <Popover>
           <PopoverTrigger asChild>

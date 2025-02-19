@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { usePagination } from './usePagination'
 
-interface UseFilteredPaginationProps<T extends Record<string, any>> {
+interface UseFilteredPaginationProps<T extends Record<string, unknown>> {
   totalCount: number
   initialParams?: T
   onParamsChange?: (params: T) => void
@@ -9,7 +9,7 @@ interface UseFilteredPaginationProps<T extends Record<string, any>> {
   pageSizes?: number[]
 }
 
-export function useFilteredPagination<T extends Record<string, any>>({
+export function useFilteredPagination<T extends Record<string, unknown>>({
   totalCount,
   initialParams = {} as T,
   onParamsChange,
@@ -33,7 +33,7 @@ export function useFilteredPagination<T extends Record<string, any>>({
     pageSizes
   })
 
-  const handleFilterChange = (key: keyof T, value: any) => {
+  const handleFilterChange = (key: keyof T, value: unknown) => {
     const newParams = { ...params, [key]: value }
     setParams(newParams)
     onParamsChange?.(newParams)
